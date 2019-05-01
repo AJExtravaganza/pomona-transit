@@ -54,6 +54,7 @@ public class Main {
             rs.close();
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -77,9 +78,42 @@ public class Main {
             }
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
     public static void addTripOfferingsMenu(Connection conn) {
+        System.out.println("Enter route, date (YYYY-MM-DD), scheduled start time (hh:mm:ss), bus ID, and driver name, space-separated ('q' for quit):");
+        String firstInput = "";//in.next();
+        if (firstInput != "q") {
+            String route = firstInput;
+            String date = "";//in.next();
+            String scheduledStartTime = "";//in.next();
+            String busId = "";//in.next();
+            String driver = "";//in.next();
+
+            try {
+                Statement stmt = conn.createStatement();
+                String sql = String.format("insert into tripOfferings values()");
+                int rowsAffected = stmt.executeUpdate(sql);
+
+                if (rowsAffected > 0) {
+                    System.out.println("Trip successfully added!\n");
+                }
+                else {
+                    System.out.println("No update made - please check validity of your data!\n");
+                }
+
+            }
+            catch (java.sql.SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else {
+            //input complete, no more trips to add
+        }
+
+
+
 
     }
     public static void changeTripOfferingDriverMenu(Connection conn) {
@@ -107,6 +141,7 @@ public class Main {
 
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
     public static void changeTripOfferingBusMenu(Connection conn) {
@@ -134,6 +169,7 @@ public class Main {
 
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -198,6 +234,7 @@ public class Main {
             rs.close();
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
 
     }
@@ -239,6 +276,7 @@ public class Main {
             rs.close();
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
 
     }
@@ -275,6 +313,7 @@ public class Main {
             rs.close();
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -311,6 +350,7 @@ public class Main {
             rs.close();
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -333,6 +373,7 @@ public class Main {
 
             stmt.close();
         } catch (java.sql.SQLException e) {
+            System.out.println(e.getMessage());
         }
 
     }
@@ -376,12 +417,9 @@ public class Main {
                 String recordString = String.format("Stop %02d - (%s) - %s (scheduled %s)", sequentialStop, stopId, address, scheduledArrival);
                 System.out.println(recordString);
 
-                String stopTimeIn = "09:00:10";
-                String paxInIn =  "10";
-                String paxOutIn = "0";
-//                String stopTimeIn = in.next();
-//                String paxInIn =  in.next();
-//                String paxOutIn = in.next();
+                String stopTimeIn = "09:00:10";//in.next();
+                String paxInIn =  "10";//in.next();
+                String paxOutIn = "0";//in.next();
 
                 if (sequentialStop == 0) {
                     actualStart = stopTimeIn;
