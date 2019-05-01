@@ -57,8 +57,117 @@ public class Main {
         }
     }
 
+    public static void deleteTripMenu(Connection conn) {
+        System.out.println("Enter route, date (YYYY-MM-DD) and scheduled start time (hh:mm:ss), space-separated:");
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+
+            String route = "";//in.next();
+            String date = "";//in.next();
+            String scheduledStartTime = "";//in.next();
+
+            sql = String.format("delete from tripOfferings where route=%s and date=%s and scheduledDeparture=%s", route, date, scheduledStartTime);
+            int rowsAffected = stmt.executeUpdate(sql);
+            if (rowsAffected > 0) {
+                System.out.println("Trip successfully deleted!\n");
+            }
+            else {
+                System.out.println("No such trip!\n");
+            }
+            stmt.close();
+        } catch (java.sql.SQLException e) {
+        }
+    }
+    public static void addTripOfferingsMenu(Connection conn) {
+
+    }
+    public static void changeTripOfferingDriverMenu(Connection conn) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+
+            System.out.println("Enter route, date (YYYY-MM-DD) and scheduled start time (hh:mm:ss), space-separated:");
+            String route = "";//in.next();
+            String date = "";//in.next();
+            String scheduledStartTime = "";//in.next();
+
+            System.out.println("Enter new driver name:");
+            String newDriver = "";//in.next();
+
+
+            sql = String.format("update from tripOfferings where route=%s and date=%s and scheduledDeparture=%s set driver=%s", route, date, scheduledStartTime, newDriver);
+            int rowsAffected = stmt.executeUpdate(sql);
+            if (rowsAffected > 0) {
+                System.out.println("Driver successfully updated!\n");
+            }
+            else {
+                System.out.println("No such trip or invalid driver!\n");
+            }
+
+            stmt.close();
+        } catch (java.sql.SQLException e) {
+        }
+    }
+    public static void changeTripOfferingBusMenu(Connection conn) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql;
+
+            System.out.println("Enter route, date (YYYY-MM-DD) and scheduled start time (hh:mm:ss), space-separated:");
+            String route = "";//in.next();
+            String date = "";//in.next();
+            String scheduledStartTime = "";//in.next();
+
+            System.out.println("Enter new bus ID:");
+            String newBusId = "";//in.next();
+
+
+            sql = String.format("update from tripOfferings where route=%s and date=%s and scheduledDeparture=%s set bus=%s", route, date, scheduledStartTime, newBusId);
+            int rowsAffected = stmt.executeUpdate(sql);
+            if (rowsAffected > 0) {
+                System.out.println("Bus successfully updated!\n");
+            }
+            else {
+                System.out.println("No such trip or invalid bus ID!\n");
+            }
+
+            stmt.close();
+        } catch (java.sql.SQLException e) {
+        }
+    }
+
+
+
     public static void editTripOfferingMenu(Connection conn) {
+
         System.out.println("editTripOfferingMenu");
+        int menuSelection = 0;
+            System.out.println("Welcome to Pomona Transit System!\n" +
+                    "Please make a selection:\n" +
+                    "1 - Delete a trip offering\n" +
+                    "2 - Add a set of trip offerings\n" +
+                    "3 - Change driver for a trip offering\n" +
+                    "4 - Change bus for a trip offering\n";
+
+            menuSelection = menuSelection == 0 ? 1 : in.nextInt();
+
+            switch (menuSelection) {
+                case 1:
+                    deleteTripMenu(conn);
+                    break;
+                case 2:
+                    addTripOfferingsMenu(conn);
+                    break;
+                case 3:
+                    changeTripOfferingDriverMenu(conn);
+                    break;
+                case 4:
+                    changeTripOfferingBusMenu(conn);
+                    break;
+                default:
+                    break;
+            }
     }
 
     public static void showStopsOnRouteMenu(Connection conn) {
@@ -95,7 +204,7 @@ public class Main {
 
     public static void showDriverWeeklyScheduleMenu(Connection conn) {
         System.out.println("showDriverWeeklyScheduleMenu");
-        System.out.println("Enter route id:");
+        System.out.println("Enter driver and first date in seven-day period (YYYY-MM-DD:, space-separated:");
 
         String routeIn = "101";//in.next();
 
